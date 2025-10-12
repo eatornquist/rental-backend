@@ -1,12 +1,45 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
+}
+
+model Property {
+  id          Int         @id @default(autoincrement())
+  address     String
+  rent        Float
+  tenantId    Int?
+  tenant      Tenant?     @relation(fields: [tenantId], references: [id])
+  contracts   Contract[]  // 👈 Relación inversa con Contract
+  createdAt   DateTime    @default(now())
+}
+
+model Tenant {
+  id          Int          @id @default(autoincrement())
+  name        String
+  email       String
+  properties  Property[]   // 👈 Relación inversa con Property
+  contracts   Contract[]   // 👈 Relación inversa con Contract
+}
+
+model Contract {
+  id          Int       @id @default(autoincrement())
+  startDate   DateTime
+  endDate     DateTime
+  propertyId  Int
+  tenantId    Int
+  payments    Payment[]
+  property    Property   @relation(fields: [propertyId], references: [id])
+  tenant      Tenant     @relation(fields: [tenantId], references: [id])
+}
+
+model Payment {
+  id          Int       @id @default(autoincrement())
+  amount      Float
+  date        DateTime  @default(now())
+  contractId  Int
+  contract    Contract  @relation(fields: [contractId], references: [id])
 }
