@@ -31,4 +31,9 @@ export class TenantsController {
   remove(@Param('id') id: string) {
     return this.tenantsService.remove(+id);
   }
+
+  @Patch(':tenantId/assign-property/:propertyId')
+  assignProperty(@Param('tenantId') tenantId: string, @Param('propertyId') propertyId: string) {
+    return this.tenantsService.assignProperty(+tenantId, +propertyId);
+  }
 }
