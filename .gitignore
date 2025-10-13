@@ -3,6 +3,11 @@
 /node_modules
 /build
 
+# Database
+*.db
+prisma/dev.db
+prisma/*.db
+
 # Logs
 logs
 *.log
