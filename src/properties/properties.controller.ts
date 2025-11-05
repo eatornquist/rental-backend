@@ -7,27 +7,27 @@ import { UpdatePropertyDto } from './dto/update-property.dto';
 export class PropertiesController {
   constructor(private readonly propertiesService: PropertiesService) {}
 
-  @Post()
+  @Post('create')
   create(@Body() createPropertyDto: CreatePropertyDto) {
     return this.propertiesService.create(createPropertyDto);
   }
 
-  @Get()
+  @Get('get-all')
   findAll() {
     return this.propertiesService.findAll();
   }
 
-  @Get(':id')
+  @Get('get/:id')
   findOne(@Param('id') id: string) {
     return this.propertiesService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Patch('update/:id')
   update(@Param('id') id: string, @Body() updatePropertyDto: UpdatePropertyDto) {
     return this.propertiesService.update(+id, updatePropertyDto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   remove(@Param('id') id: string) {
     return this.propertiesService.remove(+id);
   }
