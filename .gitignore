@@ -5,8 +5,6 @@
 
 # Database
 *.db
-prisma/dev.db
-prisma/*.db
 
 # Logs
 logs
